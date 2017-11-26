@@ -1,11 +1,14 @@
 <template lang="html">
-  <div class="row message" v-bind:class="{read: email.read, unread: !email.read, selected: email.selected}">
+  <div class="row message" v-bind:class="{
+      read: email.read,
+      unread: !email.read,
+      selected: email.selected
+    }">
     <!-- <p>{{email.selected}}</p> -->
     <div class="col-xs-1">
       <div class="row">
         <div class="col-xs-2">
           <input type="checkbox" v-model="email.selected" />
-          <!-- <p v-if="email.selected == true"></p> -->
         </div>
         <div class="col-xs-2">
           <div class="" v-on:click="toggleStar(email)">

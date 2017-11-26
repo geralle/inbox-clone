@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
-    <app-toolbar v-bind:emails="emails" v-bind:unredMsg="unredMsg" v-bind:selections="selections" v-bind:markUnread="markUnread" v-bind:markRead="markRead" v-bind:checkMsgSelection="checkMsgSelection"></app-toolbar>
-    <app-messages v-bind:emails="emails" v-bind:toggleStar="toggleStar" v-bind:selections="selections" ></app-messages>
+    <app-toolbar v-bind:emails="emails" v-bind:selections="selections" v-bind:unredMsg="unredMsg" v-bind:markUnread="markUnread" v-bind:markRead="markRead" v-bind:checkSomeMsg="checkSomeMsg" v-bind:selectAll="selectAll" v-bind:deleteEmail="deleteEmail" v-bind:findIndex="findIndex"></app-toolbar>
+    <app-messages v-bind:emails="emails" v-bind:toggleStar="toggleStar" ></app-messages>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return{
-      emails: emailData,
+      emails: emailData
     }
   },
   methods:{
@@ -37,6 +37,16 @@ export default {
       }
       return selected
     },
+    selectAll: function(){
+      for(var i=0;i<this.emails.length;i++){
+        var selectedEmail = this.emails[i].selected
+        // console.log(selectedEmail)
+        if(selectedEmail === false || selectedEmail === undefined){
+          this.emails[i]["selected"] = true;
+        }
+      }
+      return this.emails
+    },
     markUnread: function(data){
       var selectedUnread = this.selections(data)
       for(var i=0;i<selectedUnread.length;i++){
@@ -52,6 +62,26 @@ export default {
           selectedRead[i].read = true
         }
       }
+    },
+    findIndex: function(data, position, selectedDataArr){
+      // console.log("all emails",data)
+      // console.log("checkmark arr position",position)
+      // console.log("checkmark arr",selectedDataArr)
+      var index = 0
+      for(var i=0;i<data.length;i++){
+        if(selectedDataArr[position].id === data[i].id){
+          index = i
+        }
+      }
+      return index
+    },
+    deleteEmail: function(data){
+      var selectedDataArr = this.selections(data)
+      var selectedIndex = 0
+      for(var i=0; i<selectedDataArr.length; i++){
+        selectedIndex = this.findIndex(data, i, selectedDataArr)
+        data.splice(selectedIndex, 1)
+      }
     }
   },
   computed:{
@@ -64,10 +94,8 @@ export default {
       }
       return unread
     },
-    checkMsgSelection: function(){
+    checkSomeMsg: function(){
       var some = false
-      var noMsg = false
-      var allMsg = false
       var selectedMsgs = 0
       for(var i=0;i<this.emails.length;i++){
         if(this.emails[i].selected == true){

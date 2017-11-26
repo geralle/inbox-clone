@@ -9,15 +9,15 @@
 <script>
 import Message from './Message.vue'
 export default {
-  name: 'app-messages',
+  components: {
+    'app-message': Message
+  },
   props:[
     'emails',
     'toggleStar',
-    'selections'
-  ],
-  components: {
-    'app-message': Message
-  }
+    'selections',
+    'emailSelection'
+  ]
 }
 </script>
 

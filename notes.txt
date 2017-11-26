@@ -1,0 +1,13 @@
+var selectedData = this.selections(data)
+selectedData.map(function(i){
+  var emailIndex = i.id - 1
+  data.splice(emailIndex, 1)
+  console.log(data[emailIndex])
+  console.log(data)
+})
+// var i = 0
+// while(i < selectedData.length){
+//   var emailIndex = selectedData[i].id - 1
+//   this.emails.splice(emailIndex, 1)
+//   i++
+// }

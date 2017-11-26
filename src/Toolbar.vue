@@ -10,11 +10,11 @@
       <i class="fa fa-plus"></i>
     </a>
 
-    <button class="btn btn-default">
-      <p>{{checkMsgSelection}}</p>
+    <button class="btn btn-default" v-on:click="selectAll()">
+      <!-- <p>{{checkSomeMsg}}</p> -->
       <i class="fa fa-check-square-o"></i>
-      <i class="fa fa-minus-square-o"></i>
-      <i class="fa fa-square-o"></i>
+      <i v-if="checkSomeMsg == true" class="fa fa-minus-square-o"></i>
+      <i v-if="checkSomeMsg == false" class="fa fa-square-o"></i>
     </button>
 
     <button class="btn btn-default" v-on:click="markRead(emails)">Mark As Read</button>
@@ -35,7 +35,7 @@
       <option value="gschool">gschool</option>
     </select>
 
-    <button class="btn btn-default">
+    <button class="btn btn-default" v-on:click="deleteEmail(emails)">
       <i class="fa fa-trash-o"></i>
     </button>
   </div>
@@ -47,10 +47,12 @@ export default {
   props:[
     'emails',
     'unredMsg',
-    'checkMsgSelection',
-    'selections',
+    'checkSomeMsg',
+    'selectAll',
+    'markRead',
     'markUnread',
-    'markRead'
+    'deleteEmail',
+    'findIndex'
   ]
 }
 </script>
