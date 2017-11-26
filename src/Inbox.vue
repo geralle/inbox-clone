@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
-    <app-toolbar v-bind:emails="emails"></app-toolbar>
-    <app-messages v-bind:emails="emails" v-bind:toggleStar="toggleStar"></app-messages>
+    <app-toolbar v-bind:emails="emails" v-bind:unredMsg="unredMsg" v-bind:selections="selections" v-bind:markUnread="markUnread" v-bind:markRead="markRead" v-bind:checkMsgSelection="checkMsgSelection"></app-toolbar>
+    <app-messages v-bind:emails="emails" v-bind:toggleStar="toggleStar" v-bind:selections="selections" ></app-messages>
   </div>
 </template>
 
@@ -17,17 +17,67 @@ export default {
   },
   data() {
     return{
-      emails: emailData
+      emails: emailData,
     }
   },
   methods:{
-    toggleStar(email){
-      console.log(email)
+    toggleStar: function(email){
       if(email.starred === true){
         email.starred = false
       }else if(email.starred === false){
         email.starred = true
       }
+    },
+    selections: function(data){
+      var selected = []
+      for(var i=0;i<data.length;i++){
+        if(data[i].selected === true){
+          selected.push(data[i])
+        }
+      }
+      return selected
+    },
+    markUnread: function(data){
+      var selectedUnread = this.selections(data)
+      for(var i=0;i<selectedUnread.length;i++){
+        if(selectedUnread[i].read === true){
+          selectedUnread[i].read = false
+        }
+      }
+    },
+    markRead: function(data){
+      var selectedRead = this.selections(data)
+      for(var i=0;i<selectedRead.length;i++){
+        if(selectedRead[i].read === false){
+          selectedRead[i].read = true
+        }
+      }
+    }
+  },
+  computed:{
+    unredMsg: function(){
+      var unread = 0
+      for(var i=0;i<this.emails.length;i++){
+        if(this.emails[i].read === false){
+          unread++
+        }
+      }
+      return unread
+    },
+    checkMsgSelection: function(){
+      var some = false
+      var noMsg = false
+      var allMsg = false
+      var selectedMsgs = 0
+      for(var i=0;i<this.emails.length;i++){
+        if(this.emails[i].selected == true){
+          selectedMsgs++
+        }
+      }
+      if(selectedMsgs > 0){
+        some = true
+      }
+      return some
     }
   }
 }

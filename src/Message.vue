@@ -4,7 +4,8 @@
     <div class="col-xs-1">
       <div class="row">
         <div class="col-xs-2">
-          <input type="checkbox" v-model="email.selected"/>
+          <input type="checkbox" v-model="email.selected" />
+          <!-- <p v-if="email.selected == true"></p> -->
         </div>
         <div class="col-xs-2">
           <div class="" v-on:click="toggleStar(email)">
@@ -27,7 +28,8 @@
 export default {
   props:[
     'email',
-    'toggleStar'
+    'toggleStar',
+    'selections'
   ]
 }
 </script>
