@@ -4,7 +4,6 @@
       unread: !email.read,
       selected: email.selected
     }">
-    <!-- <p>{{email.selected}}</p> -->
     <div class="col-xs-1">
       <div class="row">
         <div class="col-xs-2">

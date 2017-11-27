@@ -10,11 +10,11 @@
       <i class="fa fa-plus"></i>
     </a>
 
-    <button class="btn btn-default" v-on:click="selectAll()">
-      <!-- <p>{{checkSomeMsg}}</p> -->
-      <i class="fa fa-check-square-o"></i>
+    <button class="btn btn-default" >
+      <i class="fa fa-check-square-o" v-on:click="selectAll()"></i>
       <i v-if="checkSomeMsg == true" class="fa fa-minus-square-o"></i>
       <i v-if="checkSomeMsg == false" class="fa fa-square-o"></i>
+      <i class="fa fa-check-square-o" v-on:click="removeSelectAll()"></i>
     </button>
 
     <button class="btn btn-default" v-on:click="markRead(emails)">Mark As Read</button>
@@ -49,6 +49,7 @@ export default {
     'unredMsg',
     'checkSomeMsg',
     'selectAll',
+    'removeSelectAll',
     'markRead',
     'markUnread',
     'deleteEmail',

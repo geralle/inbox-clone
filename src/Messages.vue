@@ -1,7 +1,6 @@
 <template lang="html">
   <div>
     <app-message v-for="email in emails" v-bind:email="email" v-bind:toggleStar="toggleStar" v-bind:selections="selections" key="">
-      <!-- message component -->
     </app-message>
   </div>
 </template>

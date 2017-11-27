@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <app-toolbar v-bind:emails="emails" v-bind:selections="selections" v-bind:unredMsg="unredMsg" v-bind:markUnread="markUnread" v-bind:markRead="markRead" v-bind:checkSomeMsg="checkSomeMsg" v-bind:selectAll="selectAll" v-bind:deleteEmail="deleteEmail" v-bind:findIndex="findIndex"></app-toolbar>
+    <app-toolbar v-bind:emails="emails" v-bind:selections="selections" v-bind:unredMsg="unredMsg" v-bind:markUnread="markUnread" v-bind:markRead="markRead" v-bind:checkSomeMsg="checkSomeMsg" v-bind:selectAll="selectAll" v-bind:deleteEmail="deleteEmail" v-bind:findIndex="findIndex" v-bind:removeSelectAll="removeSelectAll"></app-toolbar>
     <app-messages v-bind:emails="emails" v-bind:toggleStar="toggleStar" ></app-messages>
   </div>
 </template>
@@ -40,12 +40,18 @@ export default {
     selectAll: function(){
       for(var i=0;i<this.emails.length;i++){
         var selectedEmail = this.emails[i].selected
-        // console.log(selectedEmail)
         if(selectedEmail === false || selectedEmail === undefined){
           this.emails[i]["selected"] = true;
         }
       }
-      return this.emails
+    },
+    removeSelectAll: function(){
+      for(var i=0;i<this.emails.length;i++){
+        var selectedEmail = this.emails[i].selected
+        if(selectedEmail === true || selectedEmail === undefined){
+          this.emails[i]["selected"] = false;
+        }
+      }
     },
     markUnread: function(data){
       var selectedUnread = this.selections(data)
@@ -64,9 +70,6 @@ export default {
       }
     },
     findIndex: function(data, position, selectedDataArr){
-      // console.log("all emails",data)
-      // console.log("checkmark arr position",position)
-      // console.log("checkmark arr",selectedDataArr)
       var index = 0
       for(var i=0;i<data.length;i++){
         if(selectedDataArr[position].id === data[i].id){
