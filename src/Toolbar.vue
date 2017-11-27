@@ -6,15 +6,24 @@
       unread messages
     </p>
 
-    <a class="btn btn-danger">
+    <a class="btn btn-danger" v-on:click="toggleCompose">
       <i class="fa fa-plus"></i>
     </a>
 
-    <button class="btn btn-default" >
+    <button v-if="selectBox === 'all'" class="btn btn-default" v-on:click="removeSelectAll()">
+      <i v-if="selectBox === 'all'" class="fa fa-check-square-o"></i>
+    </button>
+
+    <button v-if="selectBox != 'all'" class="btn btn-default" v-on:click="selectAll()">
+      <i v-if="selectBox === 'some'" class="fa fa-minus-square-o"></i>
+      <i v-if="selectBox === 'none'" class="fa fa-square-o"></i>
+    </button>
+
+    <!-- <button class="btn btn-default">
       <i v-if="selectBox === 'all'" class="fa fa-check-square-o" v-on:click="removeSelectAll()"></i>
       <i v-if="selectBox === 'some'" class="fa fa-minus-square-o" v-on:click="selectAll()"></i>
       <i v-if="selectBox === 'none'" class="fa fa-square-o" v-on:click="selectAll()"></i>
-    </button>
+    </button> -->
 
     <button class="btn btn-default" v-on:click="markRead(emails)">Mark As Read</button>
 
@@ -54,7 +63,8 @@ export default {
     'deleteEmail',
     'findIndex',
     'applyLabels',
-    'removeLabel'
+    'removeLabel',
+    'toggleCompose'
   ]
 }
 </script>
