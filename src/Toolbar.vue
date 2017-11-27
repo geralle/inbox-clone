@@ -11,10 +11,9 @@
     </a>
 
     <button class="btn btn-default" >
-      <i class="fa fa-check-square-o" v-on:click="selectAll()"></i>
-      <i v-if="checkSomeMsg == true" class="fa fa-minus-square-o"></i>
-      <i v-if="checkSomeMsg == false" class="fa fa-square-o"></i>
-      <i class="fa fa-check-square-o" v-on:click="removeSelectAll()"></i>
+      <i v-if="selectBox === 'all'" class="fa fa-check-square-o" v-on:click="removeSelectAll()"></i>
+      <i v-if="selectBox === 'some'" class="fa fa-minus-square-o" v-on:click="selectAll()"></i>
+      <i v-if="selectBox === 'none'" class="fa fa-square-o" v-on:click="selectAll()"></i>
     </button>
 
     <button class="btn btn-default" v-on:click="markRead(emails)">Mark As Read</button>
@@ -47,7 +46,7 @@ export default {
   props:[
     'emails',
     'unredMsg',
-    'checkSomeMsg',
+    'selectBox',
     'selectAll',
     'removeSelectAll',
     'markRead',

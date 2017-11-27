@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <app-toolbar v-bind:emails="emails" v-bind:selections="selections" v-bind:unredMsg="unredMsg" v-bind:markUnread="markUnread" v-bind:markRead="markRead" v-bind:checkSomeMsg="checkSomeMsg" v-bind:selectAll="selectAll" v-bind:deleteEmail="deleteEmail" v-bind:findIndex="findIndex" v-bind:removeSelectAll="removeSelectAll"></app-toolbar>
+    <app-toolbar v-bind:emails="emails" v-bind:selections="selections" v-bind:unredMsg="unredMsg" v-bind:markUnread="markUnread" v-bind:markRead="markRead" v-bind:selectBox="selectBox" v-bind:selectAll="selectAll" v-bind:deleteEmail="deleteEmail" v-bind:findIndex="findIndex" v-bind:removeSelectAll="removeSelectAll"></app-toolbar>
     <app-messages v-bind:emails="emails" v-bind:toggleStar="toggleStar" ></app-messages>
   </div>
 </template>
@@ -97,18 +97,25 @@ export default {
       }
       return unread
     },
-    checkSomeMsg: function(){
-      var some = false
-      var selectedMsgs = 0
+    selectBox: function(){
+      var someMsgs = 0
+      var allMsgs = 0
+      var verdict = ""
       for(var i=0;i<this.emails.length;i++){
         if(this.emails[i].selected == true){
-          selectedMsgs++
+          someMsgs++
+          allMsgs++
         }
       }
-      if(selectedMsgs > 0){
-        some = true
+
+      if(allMsgs === this.emails.length){
+        verdict = "all"
+      }else if (someMsgs > 0 && someMsgs < this.emails.length) {
+        verdict = "some"
+      }else{
+        verdict = "none"
       }
-      return some
+      return verdict
     }
   }
 }
