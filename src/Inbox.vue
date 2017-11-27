@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <app-toolbar v-bind:emails="emails" v-bind:selections="selections" v-bind:unredMsg="unredMsg" v-bind:markUnread="markUnread" v-bind:markRead="markRead" v-bind:selectBox="selectBox" v-bind:selectAll="selectAll" v-bind:deleteEmail="deleteEmail" v-bind:findIndex="findIndex" v-bind:removeSelectAll="removeSelectAll"></app-toolbar>
+    <app-toolbar v-bind:emails="emails" v-bind:selections="selections" v-bind:unredMsg="unredMsg" v-bind:markUnread="markUnread" v-bind:markRead="markRead" v-bind:selectBox="selectBox" v-bind:selectAll="selectAll" v-bind:deleteEmail="deleteEmail" v-bind:findIndex="findIndex" v-bind:removeSelectAll="removeSelectAll" v-bind:applyLabels="applyLabels" v-bind:removeLabel="removeLabel"></app-toolbar>
     <app-messages v-bind:emails="emails" v-bind:toggleStar="toggleStar" ></app-messages>
   </div>
 </template>
@@ -84,6 +84,37 @@ export default {
       for(var i=0; i<selectedDataArr.length; i++){
         selectedIndex = this.findIndex(data, i, selectedDataArr)
         data.splice(selectedIndex, 1)
+      }
+    },
+    applyLabels: function(data){
+      var selectedDataArr = this.selections(data)
+      var selectedLabel = event.target.value
+      var selectedIndex = 0
+      for(var i=0; i<selectedDataArr.length; i++){
+        selectedIndex = this.findIndex(data, i, selectedDataArr)
+        var labelArr = data[selectedIndex].labels
+        if(labelArr.length === 0){
+          labelArr.push(selectedLabel)
+        }else if(labelArr.length > 0){
+          if(!labelArr.includes(selectedLabel)){
+            labelArr.push(selectedLabel)
+          }
+        }
+      }
+    },
+    removeLabel: function(data){
+      var selectedDataArr = this.selections(data)
+      var selectedLabel = event.target.value
+      var selectedIndex = 0
+      for(var i=0; i<selectedDataArr.length; i++){
+        selectedIndex = this.findIndex(data, i, selectedDataArr)
+        var labelArr = selectedDataArr[i].labels
+        var selectedLabelIndex = labelArr.indexOf(selectedLabel)
+        for(var x=0; x<labelArr.length; x++){
+          if(selectedLabel === labelArr[x]){
+            labelArr.splice(selectedLabelIndex, 1)
+          }
+        }
       }
     }
   },

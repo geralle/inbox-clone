@@ -20,14 +20,14 @@
 
     <button class="btn btn-default" v-on:click="markUnread(emails)">Mark As Unread</button>
 
-    <select class="form-control label-select">
+    <select class="form-control label-select" v-on:change="applyLabels(emails)">
       <option>Apply label</option>
       <option value="dev">dev</option>
       <option value="personal">personal</option>
       <option value="gschool">gschool</option>
     </select>
 
-    <select class="form-control label-select">
+    <select class="form-control label-select" v-on:change="removeLabel(emails)">
       <option>Remove label</option>
       <option value="dev">dev</option>
       <option value="personal">personal</option>
@@ -52,7 +52,9 @@ export default {
     'markRead',
     'markUnread',
     'deleteEmail',
-    'findIndex'
+    'findIndex',
+    'applyLabels',
+    'removeLabel'
   ]
 }
 </script>
