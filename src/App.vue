@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <app-inbox><!-- inbox component --></app-inbox>
+    <app-inbox><!-- this holds the inbox Inbox.vue template --></app-inbox>
   </div>
 </template>
 

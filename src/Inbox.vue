@@ -1,23 +1,30 @@
+<!-- This is the highest level of the app. Everything is created here and passed down to the Compose, Toolbar, Messages, and Message vue components -->
 <template lang="html">
   <div>
+    <!-- this holds the inbox Compose.vue template -->
     <app-compose v-if="this.compose === true" v-bind:compose="compose" v-bind:postData="postData"></app-compose>
+    <!-- this holds the inbox Toolbar.vue template -->
     <app-toolbar v-bind:emails="emails" v-bind:selections="selections" v-bind:unredMsg="unredMsg" v-bind:markUnread="markUnread" v-bind:markRead="markRead" v-bind:selectBox="selectBox" v-bind:selectAll="selectAll" v-bind:deleteEmail="deleteEmail" v-bind:findIndex="findIndex" v-bind:removeSelectAll="removeSelectAll" v-bind:applyLabels="applyLabels" v-bind:removeLabel="removeLabel" v-bind:toggleCompose="toggleCompose" v-bind:compose="compose" ></app-toolbar>
+    <!-- this holds the inbox Messages.vue template -->
     <app-messages v-bind:emails="emails" v-bind:toggleStar="toggleStar" ></app-messages>
   </div>
 </template>
 
 <script>
+// This is where you import the .vue files & seed.js data
 import Compose from './Compose.vue'
 import Toolbar from './Toolbar.vue'
 import Messages from './Messages.vue'
 import emailData from './seeds.js'
 
 export default {
+// This is where you set the variable like things for the templates above
   components: {
     'app-toolbar': Toolbar,
     'app-messages': Messages,
     'app-compose': Compose
   },
+// These are sort like global variables.. They have to be "v-bind" to the template above
   data() {
     return{
       emails: emailData,
@@ -25,6 +32,7 @@ export default {
       show: true
     }
   },
+// These are all the functions.. In order to use them you have to "v-bind" them to the templates above
   methods:{
     toggleStar: function(email){
       if(email.starred === true){
@@ -140,6 +148,7 @@ export default {
       console.log(event)
     }
   },
+// These are like the functions above but they are continuously called. Theyre sort of like continuously listening for something to change then theyre triggered
   computed:{
     unredMsg: function(){
       var unread = 0
