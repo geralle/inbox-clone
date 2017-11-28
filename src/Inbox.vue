@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
-    <app-compose></app-compose>
-    <app-toolbar v-bind:emails="emails" v-bind:selections="selections" v-bind:unredMsg="unredMsg" v-bind:markUnread="markUnread" v-bind:markRead="markRead" v-bind:selectBox="selectBox" v-bind:selectAll="selectAll" v-bind:deleteEmail="deleteEmail" v-bind:findIndex="findIndex" v-bind:removeSelectAll="removeSelectAll" v-bind:applyLabels="applyLabels" v-bind:removeLabel="removeLabel" v-bind:toggleCompose="toggleCompose"></app-toolbar>
+    <app-compose v-if="this.compose === true" v-bind:compose="compose" v-bind:postData="postData"></app-compose>
+    <app-toolbar v-bind:emails="emails" v-bind:selections="selections" v-bind:unredMsg="unredMsg" v-bind:markUnread="markUnread" v-bind:markRead="markRead" v-bind:selectBox="selectBox" v-bind:selectAll="selectAll" v-bind:deleteEmail="deleteEmail" v-bind:findIndex="findIndex" v-bind:removeSelectAll="removeSelectAll" v-bind:applyLabels="applyLabels" v-bind:removeLabel="removeLabel" v-bind:toggleCompose="toggleCompose" v-bind:compose="compose" ></app-toolbar>
     <app-messages v-bind:emails="emails" v-bind:toggleStar="toggleStar" ></app-messages>
   </div>
 </template>
@@ -20,7 +20,9 @@ export default {
   },
   data() {
     return{
-      emails: emailData
+      emails: emailData,
+      compose: false,
+      show: true
     }
   },
   methods:{
@@ -121,7 +123,21 @@ export default {
       }
     },
     toggleCompose: function(){
-      
+      var newCompose = this.compose
+      if(newCompose == true){
+        newCompose = false
+      }else{
+        newCompose = true
+      }
+      this.compose = newCompose
+    },
+    postData: function(event){
+      event.preventDefault()
+      var subject = event.path[3]["0"].value
+      var body = event.path[3]["1"].value
+      console.log(subject)
+      console.log(body)
+      console.log(event)
     }
   },
   computed:{

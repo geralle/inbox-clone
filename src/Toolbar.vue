@@ -7,7 +7,8 @@
     </p>
 
     <a class="btn btn-danger" v-on:click="toggleCompose">
-      <i class="fa fa-plus"></i>
+      <i v-if="compose == false" class="fa fa-plus"></i>
+      <i v-if="compose == true" class="fa fa-minus"></i>
     </a>
 
     <button v-if="selectBox === 'all'" class="btn btn-default" v-on:click="removeSelectAll()">
@@ -18,12 +19,6 @@
       <i v-if="selectBox === 'some'" class="fa fa-minus-square-o"></i>
       <i v-if="selectBox === 'none'" class="fa fa-square-o"></i>
     </button>
-
-    <!-- <button class="btn btn-default">
-      <i v-if="selectBox === 'all'" class="fa fa-check-square-o" v-on:click="removeSelectAll()"></i>
-      <i v-if="selectBox === 'some'" class="fa fa-minus-square-o" v-on:click="selectAll()"></i>
-      <i v-if="selectBox === 'none'" class="fa fa-square-o" v-on:click="selectAll()"></i>
-    </button> -->
 
     <button class="btn btn-default" v-on:click="markRead(emails)">Mark As Read</button>
 
@@ -64,7 +59,8 @@ export default {
     'findIndex',
     'applyLabels',
     'removeLabel',
-    'toggleCompose'
+    'toggleCompose',
+    'compose'
   ]
 }
 </script>
