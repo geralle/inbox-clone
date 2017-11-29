@@ -25,7 +25,8 @@ export default {
       emails: [],
       compose: false,
       show: true,
-      url: "http://localhost:8082/api/messages"
+      // url: "http://localhost:8082/api/messages"
+      url: "https://geralle-inbox.herokuapp.com/api/messages"
     }
   },
   mounted(){
