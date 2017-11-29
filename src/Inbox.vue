@@ -11,8 +11,10 @@ import Compose from './Compose.vue'
 import Toolbar from './Toolbar.vue'
 import Messages from './Messages.vue'
 // import emailData from './seeds.js'
+import axios from 'axios';
 
 export default {
+
   components: {
     'app-toolbar': Toolbar,
     'app-messages': Messages,
@@ -20,32 +22,19 @@ export default {
   },
   data() {
     return{
-      emails: '',
+      emails: [],
       compose: false,
       show: true,
       url: "http://localhost:8082/api/messages"
     }
   },
-  watch: {
-    emails: this.getEmails
-  },
-  created(){
-    this.getEmails()
+  mounted(){
+    axios.get(this.url)
+    .then(response => {
+      this.emails = response.data._embedded.messages
+    })
   },
   methods:{
-    getEmails: function(){
-      var newEmails = ''
-      fetch(this.url, {
-         method: 'GET'
-      }).then(function(response){
-          response.json()
-          .then((data) => {
-            // console.log('getEmails:',data)
-            return data
-          })
-          console.log(newEmails)
-      })
-    },
     toggleStar: function(email){
       if(email.starred === true){
         email.starred = false

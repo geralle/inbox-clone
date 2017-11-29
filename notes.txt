@@ -11,3 +11,17 @@ selectedData.map(function(i){
 //   this.emails.splice(emailIndex, 1)
 //   i++
 // }
+
+
+
+fetch(this.url, {
+   method: 'GET'
+}).then(function(response){
+    response.json()
+    .then(function(data){
+      var dataArr = data._embedded.messages
+      thisEmails = dataArr
+      this.emails.push(thisEmails)
+      console.log(this.emails)
+    })
+})
