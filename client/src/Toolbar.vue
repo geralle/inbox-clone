@@ -2,7 +2,6 @@
   <div class="row toolbar">
   <div class="col-md-12">
     <p class="pull-right">
-<!-- {{unredMsg}} This is just like handlebars -->
       <span class="badge badge">{{unredMsg}}</span>
       unread messages
     </p>
@@ -11,7 +10,6 @@
       <i v-if="compose == false" class="fa fa-plus"></i>
       <i v-if="compose == true" class="fa fa-minus"></i>
     </a>
-<!-- v-on:click is like document.addEventListener('click') -->
     <button v-if="selectBox === 'all'" class="btn btn-default" v-on:click="removeSelectAll()">
       <i v-if="selectBox === 'all'" class="fa fa-check-square-o"></i>
     </button>

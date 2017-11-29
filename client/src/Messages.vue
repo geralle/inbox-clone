@@ -1,6 +1,5 @@
 <template lang="html">
   <div>
-    <!-- this holds the inbox Messages.vue template -->
     <app-message v-for="email in emails" v-bind:email="email" v-bind:toggleStar="toggleStar" v-bind:selections="selections" key="">
     </app-message>
   </div>

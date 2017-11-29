@@ -27,7 +27,6 @@
 
 <script>
 export default {
-// These are the methods/functions and data that was created and "v-bind" from the Inbox.vue
   props:[
     'toggleCompose',
     'postData'

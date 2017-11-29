@@ -1,8 +1,8 @@
 <template lang="html">
   <div>
     <app-compose v-if="this.compose === true" v-bind:compose="compose" v-bind:postData="postData"></app-compose>
-    <app-toolbar  v-bind:selections="selections" v-bind:unredMsg="unredMsg" v-bind:markUnread="markUnread" v-bind:markRead="markRead" v-bind:selectBox="selectBox" v-bind:selectAll="selectAll" v-bind:deleteEmail="deleteEmail" v-bind:findIndex="findIndex" v-bind:removeSelectAll="removeSelectAll" v-bind:applyLabels="applyLabels" v-bind:removeLabel="removeLabel" v-bind:toggleCompose="toggleCompose" v-bind:compose="compose" ></app-toolbar>
-    <app-messages  v-bind:toggleStar="toggleStar" ></app-messages>
+    <app-toolbar v-bind:emails="emails" v-bind:selections="selections" v-bind:unredMsg="unredMsg" v-bind:markUnread="markUnread" v-bind:markRead="markRead" v-bind:selectBox="selectBox" v-bind:selectAll="selectAll" v-bind:deleteEmail="deleteEmail" v-bind:findIndex="findIndex" v-bind:removeSelectAll="removeSelectAll" v-bind:applyLabels="applyLabels" v-bind:removeLabel="removeLabel" v-bind:toggleCompose="toggleCompose" v-bind:compose="compose" ></app-toolbar>
+    <app-messages v-bind:emails="emails" v-bind:toggleStar="toggleStar" ></app-messages>
   </div>
 </template>
 
@@ -31,6 +31,10 @@ export default {
   mounted(){
     axios.get(this.url)
     .then(response => {
+      var emails = response.data._embedded.messages
+      for(var i=0; i < emails.length; i++){
+        emails[i]['selected'] = false
+      }
       this.emails = response.data._embedded.messages
     })
   },
