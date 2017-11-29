@@ -61,7 +61,8 @@ export default {
     'applyLabels',
     'removeLabel',
     'toggleCompose',
-    'compose'
+    'compose',
+    'getData'
   ]
 }
 </script>
